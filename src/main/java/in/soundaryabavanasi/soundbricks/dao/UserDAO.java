@@ -4,23 +4,14 @@ import in.soundaryabavanasi.soundbricks.model.User;
 
 public class UserDAO {
 	
-	public User[]findAll(){
-		User[] user = UserList.listOfUser;
-		return user;
+	public User[] findAll(){
+		User[] userList = UserList.listOfUser;
+		return userList;
 		
 	}
 	
-	public void create() {
-		User user = new User();
-		user.setId(75);
-		user.setEmail("soundarya@gmail.com");
-		user.setFirstname("soundarya");
-		user.setLastname("Bavanasi");
-		user.setActive(true);
-	    user.setPassword("sound");
-	    
-	    UserList.listOfUser[0] = user;
-	    
+	public void create(User user1) {
+		UserList.listOfUser[5] = user1;
 		
 	}
 
