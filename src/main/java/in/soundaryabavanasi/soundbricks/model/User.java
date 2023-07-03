@@ -6,7 +6,7 @@ public class User {
 	String lastname;
 	String email;
 	String password;
-	boolean isActive;
+	boolean isActive = true;
 	
 	public int getId() {
 		return id;
@@ -42,7 +42,7 @@ public class User {
 		return isActive;
 	}
 	public void setActive(boolean isActive) {
-		this.isActive = true;
+		this.isActive = isActive;
 	}
 	
 	public String fullname() {
