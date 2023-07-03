@@ -19,12 +19,12 @@ public class UserService {
 		return userList;
 	}
 	
-	public void create(User newUser1) throws Exception {
+	public void create(User newUser) throws Exception {
 		
-		UserValidator.validate(newUser1);
+		UserValidator.validate(newUser);
 		
 		UserDAO userDao = new UserDAO();
-		userDao.create(newUser1);		
+		userDao.create(newUser);		
 		
 	}
 	
@@ -35,14 +35,14 @@ public class UserService {
 		
 	}
 	
-	public void delete() {
-		
-		User deleteUser = new User();
-		
-		UserDAO userDao = new UserDAO();
-		userDao.delete(1);
-		
-	}
+//	public void delete() {
+//		
+//		User deleteUser = new User();
+//		
+//		UserDAO userDao = new UserDAO();
+//		userDao.delete(1);
+//		
+//	}
 	
 	public User findById(int id) {
 		UserDAO userDao = new UserDAO();
