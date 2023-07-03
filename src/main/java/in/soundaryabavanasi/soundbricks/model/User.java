@@ -2,6 +2,12 @@ package in.soundaryabavanasi.soundbricks.model;
 
 public class User {
 	int id;
+	String firstname;
+	String lastname;
+	String email;
+	String password;
+	boolean isActive;
+	
 	public int getId() {
 		return id;
 	}
@@ -36,23 +42,23 @@ public class User {
 		return isActive;
 	}
 	public void setActive(boolean isActive) {
-		this.isActive = isActive;
+		this.isActive = true;
 	}
-	String firstname;
+	
+	public String fullname() {
+		return firstname.concat("").concat("");
+		
+	}
+	
+	
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email
 				+ ", password=" + password + ", isActive=" + isActive + "]";
 	}
+
+
 	
-	String lastname;
-	String email;
-	String password;
-	boolean isActive;
-	public String fullname() {
-		return firstname.concat("").concat("");
-		
-	}
 	
 
 }

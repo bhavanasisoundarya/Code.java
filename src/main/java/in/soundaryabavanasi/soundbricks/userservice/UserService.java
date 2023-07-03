@@ -1,27 +1,38 @@
 package in.soundaryabavanasi.soundbricks.userservice;
-
+import in.soundaryabavanasi.soundbricks.*;
 import in.soundaryabavanasi.soundbricks.dao.UserDAO;
-import in.soundaryabavanasi.soundbricks.model.User;
 
-public class UserService {
-	public User[] getAll(){
-		UserDAO user = new UserDAO();
-		User[] userList = user.findAll();
-		for (int i = 0; i < userList.length; i++) {
-			System.out.println(userList[i]);
-		 }
-		return userList;
+
+
+   public class UserService {
+	public User[] getAll() {
+		public void create(User newUser) {
+			UserDAO userDao = new UserDAO();
+			userDao.create(newUser);
+		}
+		return userList;	
 	}
-	public void create() {
-		User
-		user1 = new User();
-		user1.setId(75);
-		user1.setFirstname("soundarya");
-		user1.setLastname("Bavanasi");
-		user1.setActive(true);
-	    user1.setPassword("sound");
-	    
+   
+	public void create(User newuser)throws Exception {
+		UserValidator.Validate(newUser);
 		UserDAO userDao = new UserDAO();
-		userDao.create(user1);
+		userDao.create(newuser);
 	}
+	
+	
+	public void update() {
+		User updatedUser = new User();
+		UserDAO userDao = new UserDAO();
+		userDao.update(11,updatedUser);
+	}
+	
+	public void delete() {
+		User deleteUser = new User();
+		UserDAO userDao = new UserDAO();
+		userDao.create(deleteUser);
+	}
+	
+
+	
+
  }
