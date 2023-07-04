@@ -45,7 +45,7 @@ public class UserDAO {
 			}
 			
 			if(user.getId()==id) {
-//				user.setFirstName("Thara");
+
 				
 				user.setFirstname(updateUser.getFirstname());
 				user.setLastname(updateUser.getLastname());
@@ -58,24 +58,24 @@ public class UserDAO {
 		
 	}
 	
-//	public void delete(int id) {
-//			
-//			User[] userList = UserList.listOfUsers;
-//			
-//			for(int i=0; i<userList.length; i++) {
-//				
-//				User user = userList[i];
-//				
-//				if(user==null) {
-//					continue;
-//				}
-//				
-//				if(user.getId()==id) {
-//					user.setActive(false);
-//					break;
-//				}
-//			}
-//		}
+	public void delete(int id) {
+			
+			User[] userList = UserList.listOfUser;
+			
+			for(int i=0; i<userList.length; i++) {
+				
+				User user = userList[i];
+				
+				if(user==null) {
+					continue;
+				}
+				
+				if(user.getId()==id) {
+					user.setActive(false);
+					break;
+				}
+			}
+		}
 	public User findById(int id) {
 		User[] userList = UserList.listOfUser;
 		User userMatch = null;
