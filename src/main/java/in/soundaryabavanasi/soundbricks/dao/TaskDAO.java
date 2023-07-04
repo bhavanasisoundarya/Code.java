@@ -1,25 +1,25 @@
 package in.soundaryabavanasi.soundbricks.dao;
 
-import in.soundaryabavanasi.soundbricks.model.UserTask;
-import in.soundaryabavanasi.soundbricks.dao.UserTaskList;
+import in.soundaryabavanasi.soundbricks.model.Task;
+import in.soundaryabavanasi.soundbricks.dao.TaskList;
 
-public class UserTaskDAO {
+public class TaskDAO {
 
-	public UserTask[] findAll() {	
-		UserTask[] userList = UserTaskList.listOfUser;
+	public Task[] findAll() {	
+		Task[] userList = TaskList.listOfUser;
 		return userList;
 	}
 	
 	
 	
-	public void create(UserTask newuser) {
+	public void create(Task newuser) {
 		
 
 		
-		UserTask[] userList = UserTaskList.listOfUser;
+		Task[] userList = TaskList.listOfUser;
 		for(int i=0; i<userList.length; i++) {
 			
-			UserTask user = userList[i];
+			Task user = userList[i];
 			
 			if(user==null) {
 				userList[i] = newuser;
@@ -29,13 +29,13 @@ public class UserTaskDAO {
 			
 		}
 	}
-public void update(int id, UserTask updateUser) {
+public void update(int id, Task updateUser) {
 		
-		UserTask[] userList = UserTaskList.listOfUser;
+		Task[] userList = TaskList.listOfUser;
 		
 		for(int i=0; i<userList.length; i++) {
 			
-			UserTask user = userList[i];
+			Task user = userList[i];
 			
 			if(user==null) {
 				continue;
@@ -56,11 +56,11 @@ public void update(int id, UserTask updateUser) {
 	
 	public void delete(int id) {
 			
-			UserTask[] userList = UserTaskList.listOfUser;
+			Task[] userList = TaskList.listOfUser;
 			
 			for(int i=0; i<userList.length; i++) {
 				
-				UserTask user = userList[i];
+				Task user = userList[i];
 				
 				if(user==null) {
 					continue;
@@ -73,12 +73,12 @@ public void update(int id, UserTask updateUser) {
 			}
 		}
 	
-	public UserTask findById(int id) {
-		UserTask[] userList = UserTaskList.listOfUser;
-		UserTask userMatch = null;
+	public Task findById(int id) {
+		Task[] userList = TaskList.listOfUser;
+		Task userMatch = null;
 	
 		for (int i = 0; i < userList.length; i++) {
-			UserTask user = userList[i];
+			Task user = userList[i];
 			if (user.getId() == id) {
 				userMatch = user;
 				break;

@@ -1,7 +1,7 @@
 package in.soundaryabavanasi.soundbricks.model;
 import java.time.LocalDate;
 
-public class UserTask {
+public class Task {
      int id;
      String name;
      LocalDate dueDate;

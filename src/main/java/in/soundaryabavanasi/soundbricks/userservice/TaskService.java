@@ -1,11 +1,12 @@
 package in.soundaryabavanasi.soundbricks.userservice;
-import in.soundaryabavanasi.soundbricks.dao.TaskDAO;
 
+import in.soundaryabavanasi.soundbricks.dao.TaskDAO;
 import in.soundaryabavanasi.soundbricks.model.Task;
 import in.soundaryabavanasi.soundbricks.validation.TaskValidator;
 
-public class UserService {
-	public Task[] getAll() {
+
+public class TaskService {
+public Task[] getAll() {
 		
 		TaskDAO userDao = new TaskDAO();
 		
@@ -29,26 +30,22 @@ public class UserService {
 		
 	}
 	
+	
 	public void update(int id, Task updateUser) {
 				
-		TaskDAO userDao = new TaskDAO();
-		userDao.update(1,updateUser);
+		TaskDAO usersDao = new TaskDAO();
+		usersDao.update(1,updateUser);
 		
 	}
 	
-//	public void delete() {
-//		
-//		User deleteUser = new User();
-//		
-//		UserDAO userDao = new UserDAO();
-//		userDao.delete(1);
-//		
-//	}
+
 	
 	public Task findById(int id) {
-		TaskDAO userDao = new TaskDAO();
-		Task user = userDao.findById(id);
+		TaskDAO usersDao = new TaskDAO();
+		Task user = usersDao.findById(id);
 //		this.printUser(user);
 		return user;
 	}
 }
+
+

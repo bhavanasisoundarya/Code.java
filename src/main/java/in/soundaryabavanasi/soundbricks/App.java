@@ -1,8 +1,8 @@
 package in.soundaryabavanasi.soundbricks;
 
-import in.soundaryabavanasi.soundbricks.userservice.TaskUserService;
+import in.soundaryabavanasi.soundbricks.userservice.TaskService;
 import in.soundaryabavanasi.soundbricks.model.User;
-import in.soundaryabavanasi.soundbricks.model.UserTask;
+import in.soundaryabavanasi.soundbricks.model.Task;
 import in.soundaryabavanasi.soundbricks.userservice.UserService;
 
 import java.time.LocalDate;
@@ -48,8 +48,8 @@ public class App {
         //////////////////FOR TASK////////////
 
         try {
-            TaskUserService taskService = new TaskUserService();
-            UserTask newTask = new UserTask();
+            TaskService taskService = new TaskService();
+            Task newTask = new Task();
             newTask.setId(1);
             newTask.setName("Rc");
             newTask.setDueDate(LocalDate.of(2023, 7, 4));
