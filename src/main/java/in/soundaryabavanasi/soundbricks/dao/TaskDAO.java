@@ -1,50 +1,57 @@
 package in.soundaryabavanasi.soundbricks.dao;
 
 import in.soundaryabavanasi.soundbricks.model.Task;
+import in.soundaryabavanasi.soundbricks.model.User;
 import in.soundaryabavanasi.soundbricks.dao.TaskList;
 
 public class TaskDAO {
 
 	public Task[] findAll() {	
-		Task[] userList = TaskList.listOfUser;
-		return userList;
+		Task[] taskList = TaskList.listOfUser;
+		return taskList;
 	}
 	
 	
 	
 	public void create(Task newuser) {
 		
-
-		
-		Task[] userList = TaskList.listOfUser;
-		for(int i=0; i<userList.length; i++) {
+    Task[] taskList = TaskList.listOfUser;
+		for(int i=0; i<taskList.length; i++) {
 			
-			Task user = userList[i];
+			Task task = taskList[i];
 			
-			if(user==null) {
-				userList[i] = newuser;
+			if(task==null) {
+				taskList[i] = newuser;
 
 				break;
 			}
 			
 		}
 	}
-public void update(int id, Task updateUser) {
+	
+	/**
+	 *
+	 * @param id
+	 * @param updateUser
+	 */
+	
+	public void update(int id, Task updateUser) {
 		
-		Task[] userList = TaskList.listOfUser;
+		Task[] taskList = TaskList.listOfUser;
 		
-		for(int i=0; i<userList.length; i++) {
+		for(int i=0; i<taskList.length; i++) {
 			
-			Task user = userList[i];
+			Task task = taskList[i];
 			
-			if(user==null) {
+			if(task==null) {
 				continue;
 			}
 			
-			if(user.getId()==id) {
+			if(task.getId()==id) {
 
 				
-				user.setName(updateUser.getName());
+				task.setName(updateUser.getName());
+				task.setDueDate(updateUser.getDueDate());
 				
 				
 				break;
@@ -53,38 +60,47 @@ public void update(int id, Task updateUser) {
 		}
 		
 	}
+
+			
+		
+		
+	
 	
 	public void delete(int id) {
 			
-			Task[] userList = TaskList.listOfUser;
+			Task[] taskList = TaskList.listOfUser;
 			
-			for(int i=0; i<userList.length; i++) {
+			for(int i=0; i<taskList.length; i++) {
 				
-				Task user = userList[i];
+				Task task = taskList[i];
 				
-				if(user==null) {
+				if(task==null) {
 					continue;
 				}
 				
-				if(user.getId()==id) {
-					user.setActive(false);
+				if(task.getId()==id) {
+					task.setActive(false);
 					break;
 				}
 			}
 		}
 	
 	public Task findById(int id) {
-		Task[] userList = TaskList.listOfUser;
-		Task userMatch = null;
+		Task[] taskList = TaskList.listOfUser;
+		Task taskMatch = null;
 	
-		for (int i = 0; i < userList.length; i++) {
-			Task user = userList[i];
+		for (int i = 0; i < taskList.length; i++) {
+			Task user = taskList[i];
 			if (user.getId() == id) {
-				userMatch = user;
+				taskMatch = user;
 				break;
 			}
 		}
-		return userMatch;
+		return taskMatch;
 	}
+
+
+
+	
 
 }

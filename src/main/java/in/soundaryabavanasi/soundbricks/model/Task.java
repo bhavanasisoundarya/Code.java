@@ -38,7 +38,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return "UserTask [id=" + id + ", name=" + name + ", dueDate=" + dueDate + ", isActive=" + isActive + "]";
+        return "Task [id=" + id + ", Name=" + name + ", dueDate=" + dueDate + ", isActive=" + isActive + "]";
     }
 
 	

@@ -1,15 +1,16 @@
 package in.soundaryabavanasi.soundbricks.userservice;
-import in.soundaryabavanasi.soundbricks.dao.TaskDAO;
+import in.soundaryabavanasi.soundbricks.dao.UserDAO;
 
-import in.soundaryabavanasi.soundbricks.model.Task;
-import in.soundaryabavanasi.soundbricks.validation.TaskValidator;
+
+import in.soundaryabavanasi.soundbricks.model.User;
+import in.soundaryabavanasi.soundbricks.validation.UserValidator;
 
 public class UserService {
-	public Task[] getAll() {
+	public User[] getAll() {
 		
-		TaskDAO userDao = new TaskDAO();
+		UserDAO userDao = new UserDAO();
 		
-		Task[] userList = userDao.findAll();
+		User[] userList = userDao.findAll();
 		
 		for(int i=0; i<userList.length; i++) {
 			
@@ -20,34 +21,33 @@ public class UserService {
 		return userList;
 	}
 	
-	public void create(Task newUser) throws Exception {
+	public void create(User newUser) throws Exception {
 		
-		TaskValidator.validate(newUser);
+		UserValidator.validate(newUser);
 		
-		TaskDAO userDao = new TaskDAO();
+		UserDAO userDao = new UserDAO();
 		userDao.create(newUser);		
 		
 	}
 	
-	public void update(int id, Task updateUser) {
-				
-		TaskDAO userDao = new TaskDAO();
+	public void update(int id, User updateUser) {
+      UserDAO userDao = new UserDAO();
 		userDao.update(1,updateUser);
 		
 	}
 	
-//	public void delete() {
-//		
-//		User deleteUser = new User();
-//		
-//		UserDAO userDao = new UserDAO();
-//		userDao.delete(1);
-//		
-//	}
+	public void delete() {
+		
+		User deleteUser = new User();
+		
+		UserDAO userDao = new UserDAO();
+		userDao.delete(1);
+		
+	}
 	
-	public Task findById(int id) {
-		TaskDAO userDao = new TaskDAO();
-		Task user = userDao.findById(id);
+	public User findById(int id) {
+		UserDAO userDao = new UserDAO();
+		User user = userDao.findById(id);
 //		this.printUser(user);
 		return user;
 	}

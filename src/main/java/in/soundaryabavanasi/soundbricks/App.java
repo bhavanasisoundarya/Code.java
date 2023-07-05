@@ -44,6 +44,8 @@ public class App {
         userService.update(2, updateUser);
 
         userService.getAll();
+        
+        
 
         //////////////////FOR TASK////////////
 
@@ -51,7 +53,7 @@ public class App {
             TaskService taskService = new TaskService();
             Task newTask = new Task();
             newTask.setId(1);
-            newTask.setName("Rc");
+            newTask.setName("Chinna");
             newTask.setDueDate(LocalDate.of(2023, 7, 4));
             newTask.setActive(true);
             taskService.create(newTask);
@@ -59,5 +61,23 @@ public class App {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
+    
+    
+   
+	try {
+		 TaskService newservice = new TaskService();
+		Task newTask = new Task();
+		newTask.setId(12345);
+		newTask.setName("Write");
+		String date = "09-07-2023";
+		LocalDate convert = newservice.convertToDate(date);
+		newTask.setDueDate(convert);
+		newTask.setActive(true);
+		
+		newservice.create(newTask);
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+}
 }

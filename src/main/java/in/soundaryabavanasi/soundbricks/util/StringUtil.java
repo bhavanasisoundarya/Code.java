@@ -1,5 +1,7 @@
 package in.soundaryabavanasi.soundbricks.util;
 
+import java.time.LocalDate;
+
 import in.soundaryabavanasi.soundbricks.exception.ValidateException;
 import in.soundaryabavanasi.soundbricks.util.*;
 
@@ -12,7 +14,7 @@ public class StringUtil {
 
 	}
 
-	public static boolean isValid(String input) {
+	public static boolean isValid(String input)throws ValidateException {
 		if (input == null || "".equals(input.trim())) {
 			return false;
 		} else {
@@ -20,12 +22,22 @@ public class StringUtil {
 		}
 	}
 
-	public static boolean isInValid(String input) {
+	public static boolean isInValid(String input)throws  ValidateException {
 		if (input == null || "".equals(input.trim())) {
 			return false;
 		} else {
 			return true;
 		}
+	}
+
+public static void rejectIfInvalidDate(LocalDate input, String inputName) throws Exception {
+		
+		LocalDate date = LocalDate.now();
+		
+		if(input.isBefore(date)) {
+			throw new ValidateException(inputName.concat(" Invalid"));
+		}
+		
 	}
 
 }
