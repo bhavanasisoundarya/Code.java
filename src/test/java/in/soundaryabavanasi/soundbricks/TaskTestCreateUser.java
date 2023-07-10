@@ -22,7 +22,7 @@ public class TaskTestCreateUser {
 
 		Task newUser = new Task();
 		newUser.setId(3);
-		newUser.setName("Soundarya");
+		newUser.setName("Sandhya");
 		String date = "06-07-2023";
 		LocalDate convert = TaskService.convertToDate(date);
 		newUser.setDueDate(convert);
@@ -44,7 +44,7 @@ public class TaskTestCreateUser {
 		String actualMessage = exception.getMessage();
 		assertTrue(expectedMessage.equals(actualMessage));
 	}
-	// dueDate test case
+	
 
 	@Test
 

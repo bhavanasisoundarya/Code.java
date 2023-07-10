@@ -7,7 +7,7 @@ import in.soundaryabavanasi.soundbricks.dao.TaskList;
 public class TaskDAO {
 
 	public Task[] findAll() {	
-		Task[] taskList = TaskList.listOfUser;
+		Task[] taskList = TaskList.listOfTask;
 		return taskList;
 	}
 	
@@ -15,7 +15,7 @@ public class TaskDAO {
 	
 	public void create(Task newuser) {
 		
-    Task[] taskList = TaskList.listOfUser;
+    Task[] taskList = TaskList.listOfTask;
 		for(int i=0; i<taskList.length; i++) {
 			
 			Task task = taskList[i];
@@ -37,7 +37,7 @@ public class TaskDAO {
 	
 	public void update(int id, Task updateUser) {
 		
-		Task[] taskList = TaskList.listOfUser;
+		Task[] taskList = TaskList.listOfTask;
 		
 		for(int i=0; i<taskList.length; i++) {
 			
@@ -68,7 +68,7 @@ public class TaskDAO {
 	
 	public void delete(int id) {
 			
-			Task[] taskList = TaskList.listOfUser;
+			Task[] taskList = TaskList.listOfTask;
 			
 			for(int i=0; i<taskList.length; i++) {
 				
@@ -86,7 +86,7 @@ public class TaskDAO {
 		}
 	
 	public Task findById(int id) {
-		Task[] taskList = TaskList.listOfUser;
+		Task[] taskList = TaskList.listOfTask;
 		Task taskMatch = null;
 	
 		for (int i = 0; i < taskList.length; i++) {

@@ -2,7 +2,6 @@ package in.soundaryabavanasi.soundbricks.userservice;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
 import in.soundaryabavanasi.soundbricks.dao.TaskDAO;
 import in.soundaryabavanasi.soundbricks.model.Task;
 import in.soundaryabavanasi.soundbricks.validation.TaskValidator;
@@ -18,15 +17,15 @@ public Task[] getAll() {
 		for(int i=0; i<userList.length; i++) {
 			
 			System.out.println(userList[i]);
-			
 		}
 				
 		return userList;
 	}
 
+
+
 public static LocalDate convertToDate(String date) {
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-	
 	try {
 		LocalDate localDate = LocalDate.parse(date, formatter);
 		return localDate;
@@ -35,6 +34,8 @@ public static LocalDate convertToDate(String date) {
 		return null;
 	}
 }
+
+
 	
 	public void create(Task newUser) throws Exception {
 		
