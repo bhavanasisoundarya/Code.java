@@ -1,54 +1,50 @@
 package in.soundaryabavanasi.soundbricks.userservice;
+
+import java.util.Set;
+
 import in.soundaryabavanasi.soundbricks.dao.UserDAO;
-
-
-import in.soundaryabavanasi.soundbricks.model.User;
+import in.soundaryabavanasi.soundbricks.exception.ValidateException;
+import in.soundaryabavanasi.soundbricks.model.*;
 import in.soundaryabavanasi.soundbricks.validation.UserValidator;
 
 public class UserService {
-	public User[] getAll() {
-		
-		UserDAO userDao = new UserDAO();
-		
-		User[] userList = userDao.findAll();
-		
-		for(int i=0; i<userList.length; i++) {
-			
-			System.out.println(userList[i]);
-			
-		}
-				
-		return userList;
-	}
 	
-	public void create(User newUser) throws Exception {
+	public void create(User newUser) throws ValidateException{
 		
 		UserValidator.validate(newUser);
 		
-		UserDAO userDao = new UserDAO();
-		userDao.create(newUser);		
+		UserDAO userObj = new UserDAO();
+		userObj.create(newUser);
+		
 		
 	}
 	
-	public void update(int id, User updateUser) {
-      UserDAO userDao = new UserDAO();
-		userDao.update(1,updateUser);
-		
+	public Set<User> getAll() {
+		UserDAO userObj = new UserDAO();
+		Set<User> userArray = userObj.findAll();
+		return userArray;
 	}
 	
-	public void delete() {
-		
-		User deleteUser = new User();
-		
-		UserDAO userDao = new UserDAO();
-		userDao.delete(1);
-		
-	}
 	
-	public User findById(int id) {
-		UserDAO userDao = new UserDAO();
-		User user = userDao.findById(id);
-//		this.printUser(user);
-		return user;
-	}
+//	public void update() {
+//		User newUser3 = new User();
+//		newUser3.setId(12);
+//		newUser3.setFirstname("Vaishnavi");
+//		newUser3.setLastname("Shriram");
+//		newUser3.setEmail("vaishnavi@gmail.com");
+//		newUser3.setPassword("asdf***1234");
+//		newUser3.setActive(true);
+//		
+//		UserDAO userObj = new UserDAO();
+//		userObj.update(12, newUser3);
+//	}
+//	
+//	
+//	public void delete() {
+//		User newUser4 = new User();
+//		newUser4.setActive(false);
+//		
+//		UserDAO userObj = new UserDAO();
+//		userObj.delete(12);
+//	}
 }

@@ -41,7 +41,7 @@ public class App {
         updateUser.setPassword("reddy@12");
         updateUser.setActive(true);
 
-        userService.update(2, updateUser);
+        userService.update();
 
         userService.getAll();
         
