@@ -7,8 +7,8 @@ import in.soundaryabavanasi.soundbricks.userservice.UserService;
 
 import java.time.LocalDate;
 
-public class App {
-    public static void main(String[] args) {
+    public class App {
+     public static void main(String[] args) {
         User newUser = new User();
         newUser.setId(3);
         newUser.setFirstname("soundarya");

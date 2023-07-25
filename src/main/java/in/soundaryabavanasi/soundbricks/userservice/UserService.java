@@ -20,9 +20,22 @@ public class UserService {
 	}
 	
 	public Set<User> getAll() {
-		UserDAO userObj = new UserDAO();
-		Set<User> userArray = userObj.findAll();
-		return userArray;
+		UserDAO userDao = new UserDAO();
+		Set<User> userList = userDao.findAll();
+		for (User user : userList) {
+			System.out.println(user);
+		}
+		return userList;
+	}
+
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public User findById(int i) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

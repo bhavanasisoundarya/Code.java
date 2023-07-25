@@ -13,13 +13,11 @@ public class ConnectionUtil {
 		String userName = null;
 		String password = null;
 		try {
-			//Class.forName("com.mysql.cj.jdbc.Driver");
-			//connection = DriverManager.getConnection(url , userName , password);
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			 connection = DriverManager.getConnection(
-			  "jdbc:mysql://aws.connect.psdb.cloud/corejava?sslMode=VERIFY_IDENTITY",
-			  "axbcehhmur8kladlz23z",
-			  "pscale_pw_QT3WtznFd0fyuEYRosTLm7rizs6ndyWquCxUmYcriVY");
+					 "jdbc:mysql://aws.connect.psdb.cloud/corejava?sslMode=VERIFY_IDENTITY",
+					  "ifqyd3pf2isr20qla61w",
+					  "pscale_pw_mdpwhyffH4ab61O7D6UXB3ibRTqnICaE1D7n9Jjnxsf");
 
 		}
 		catch(Exception e){

@@ -10,27 +10,29 @@ import java.util.*;
 public class UserDAO implements UserInterface{
 
 	public Set<User> findAll() throws RuntimeException {	
+		
 		Connection con = null;
 		PreparedStatement ps = null;
-		ResultSet rs = null;
 		
+		ResultSet rs = null;
 		Set<User> userList = new HashSet<>();
 		
 		try {
 			
-			String query = "SELECT * FROM Users WHERE isActive=1";
+			String query = "SELECT * FROM users WHERE isactive = 1";
 			con = ConnectionUtil.getConnection();
 			ps = con.prepareStatement(query);
-//			ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
+           
 			
 			while(rs.next()) {
 				User user = new User();
 				user.setId(rs.getInt("id"));
-				user.setFirstname(rs.getString("first_name"));
-				user.setLastname(rs.getString("last_name"));
+				user.setFirstname(rs.getString("firstname"));
+				user.setLastname(rs.getString("lastname"));
 				user.setEmail(rs.getString("email"));
 				user.setPassword(rs.getString("password"));
-				user.setActive(rs.getBoolean("is_active"));
+				user.setActive(rs.getBoolean("isActive"));
 				userList.add(user);
 			}
 		}catch (SQLException e) {
@@ -43,59 +45,107 @@ public class UserDAO implements UserInterface{
 		}
 		
 		return userList;
-		
-//		UserEntity[] userList = UserList.listOfUsers;
-//		return userList;
 	}
 	
-	
-	
-	public void create(User newuser) {
+	@Override
+	public void create(User newUser) throws RuntimeException{
 		
 //		UserList.listOfUsers[0] = newuser;
 		
-		Set<User> userList = UserList.listOfUsers;
+		Connection conn = null;
+		PreparedStatement ps = null;
+		User user = null;
 
-		userList.add((User)newuser);
-	}
+		try {
+			String query = "INSERT INTO users (firstname, lastname, email, password) VALUES (?,?,?,?)";
+			conn = ConnectionUtil.getConnection();
+			ps = conn.prepareStatement(query);
+			ps.setString(1, newUser.getFirstname());
+			ps.setString(2, newUser.getLastname());
+			ps.setString(3, newUser.getPassword());
+			ps.setString(4, newUser.getEmail());
+			ps.executeUpdate(query);
+	           
+			System.out.print("Successfull");
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+			throw new RuntimeException();
+			
+		}finally {
+			ConnectionUtil.close(conn, ps);
+		}
+					
+				
+			
+		}
+	
+
+
+
+	
+
+
+//	@Override
+//	public void update() {
+//		// TODO Auto-generated method stub
+//		return null;
+//		
+//	}
+//
+//@Override
+//	public void delete() {
+//		// TODO Auto-generated method stub
+//		
+//	}
 
 
 
 	@Override
-	public void create() {
-		// TODO Auto-generated method stub
+	public User findById(int userId) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		User user = null;
+		ResultSet rs = null;
 		
-	}
-
-
-
-	@Override
-	public void update() {
-		// TODO Auto-generated method stub
 		
-	}
-
-
-
-	@Override
-	public void delete() {
-		// TODO Auto-generated method stub
+		try {
+			
+			String query = "SELECT * FROM users WHERE is_active = 1 AND id=?";
+			conn = ConnectionUtil.getConnection();
+			ps = conn.prepareStatement(query);
+			ps.setInt(1, userId);
+			rs = ps.executeQuery();
+	
+			while(rs.next()) {
+				user = new User();
+				user.setId(rs.getInt("id"));
+				user.setFirstname(rs.getString("firstname"));
+				user.setLastname(rs.getString("lastname"));
+				user.setEmail(rs.getString("email"));
+				user.setPassword(rs.getString("password"));
+				user.setActive(rs.getBoolean("isActive"));
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+			throw new RuntimeException();
+			
+		}finally {
+			ConnectionUtil.close(conn, ps, rs);
+		}
 		
-	}
-
-
-
-	@Override
-	public Set<User> findById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return user;
+	
+		
 	}
 
 
 
 	@Override
 	public User findByEmail(String ermail) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
@@ -113,6 +163,20 @@ public class UserDAO implements UserInterface{
 	public int count() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void delete() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	/**
