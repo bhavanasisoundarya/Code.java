@@ -49,13 +49,9 @@ public class UserDAO implements UserInterface{
 	
 	@Override
 	public void create(User newUser) throws RuntimeException{
-		
-//		UserList.listOfUsers[0] = newuser;
-		
 		Connection conn = null;
 		PreparedStatement ps = null;
-		User user = null;
-
+		
 		try {
 			String query = "INSERT INTO users (firstname, lastname, email, password) VALUES (?,?,?,?)";
 			conn = ConnectionUtil.getConnection();
@@ -106,7 +102,7 @@ public class UserDAO implements UserInterface{
 	public User findById(int userId) {
 		Connection conn = null;
 		PreparedStatement ps = null;
-		User user = null;
+		User users = null;
 		ResultSet rs = null;
 		
 		
@@ -119,13 +115,13 @@ public class UserDAO implements UserInterface{
 			rs = ps.executeQuery();
 	
 			while(rs.next()) {
-				user = new User();
-				user.setId(rs.getInt("id"));
-				user.setFirstname(rs.getString("firstname"));
-				user.setLastname(rs.getString("lastname"));
-				user.setEmail(rs.getString("email"));
-				user.setPassword(rs.getString("password"));
-				user.setActive(rs.getBoolean("isActive"));
+				users = new User();
+				users.setId(rs.getInt("id"));
+				users.setFirstname(rs.getString("firstname"));
+				users.setLastname(rs.getString("lastname"));
+				users.setEmail(rs.getString("email"));
+				users.setPassword(rs.getString("password"));
+				users.setActive(rs.getBoolean("isActive"));
 			}
 		}catch (SQLException e) {
 			e.printStackTrace();
@@ -136,7 +132,7 @@ public class UserDAO implements UserInterface{
 			ConnectionUtil.close(conn, ps, rs);
 		}
 		
-		return user;
+		return users;
 	
 		
 	}
@@ -167,8 +163,32 @@ public class UserDAO implements UserInterface{
 
 
 	@Override
-	public void update() {
-		// TODO Auto-generated method stub
+	public void update( ) {
+//		String query = "SELECT * FROM users WHERE is_active = 1 AND id=?";
+//		conn = ConnectionUtil.getConnection();
+//		ps = conn.prepareStatement(query);
+//		ps.setInt(1, userId);
+//		rs = ps.executeQuery();
+//
+//		while(rs.next()) {
+//			user = new User();
+//			user.setId(rs.getInt("id"));
+//			user.setFirstname(rs.getString("firstname"));
+//			user.setLastname(rs.getString("lastname"));
+//			user.setEmail(rs.getString("email"));
+//			user.setPassword(rs.getString("password"));
+//			user.setActive(rs.getBoolean("isActive"));
+//		}
+//	}catch (SQLException e) {
+//		e.printStackTrace();
+//		System.out.println(e.getMessage());
+//		throw new RuntimeException();
+//		
+//	}finally {
+//		ConnectionUtil.close(conn, ps, rs);
+//	}
+//	
+//	return user;
 		
 	}
 
