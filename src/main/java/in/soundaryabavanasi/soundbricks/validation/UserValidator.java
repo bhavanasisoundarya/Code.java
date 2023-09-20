@@ -19,11 +19,11 @@ public class UserValidator {
 //			
 //		}
 
-		StringUtil.rejectIfInvalidString(user.getEmail(), "Email");
+		StringUtil.rejectIfInvalidString(user.getEmailId(), "Email");
 
 		StringUtil.rejectIfInvalidString(user.getPassword(), "Password");
 
-		StringUtil.rejectIfInvalidString(user.getFirstname(), "FirstName");
+		StringUtil.rejectIfInvalidString(user.getFirstName(), "FirstName");
 
 	}
 }

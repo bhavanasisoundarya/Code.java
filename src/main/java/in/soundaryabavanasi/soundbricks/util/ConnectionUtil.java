@@ -22,7 +22,7 @@ public class ConnectionUtil {
 //					 "jdbc:mysql://aws.connect.psdb.cloud/corejava?sslMode=VERIFY_IDENTITY",
 //					  "ifqyd3pf2isr20qla61w",
 //					  "pscale_pw_mdpwhyffH4ab61O7D6UXB3ibRTqnICaE1D7n9Jjnxsf");
-       connection = DriverManager.getConnection(url, username,password);
+       connection = DriverManager.getConnection(url,username,password);
 		}
 		catch(Exception e){
 			e.printStackTrace();

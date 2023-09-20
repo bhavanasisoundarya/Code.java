@@ -2,66 +2,63 @@ package in.soundaryabavanasi.soundbricks.userservice;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Set;
+
 import in.soundaryabavanasi.soundbricks.dao.TaskDAO;
+import in.soundaryabavanasi.soundbricks.exception.ValidateException;
 import in.soundaryabavanasi.soundbricks.model.Task;
 import in.soundaryabavanasi.soundbricks.validation.TaskValidator;
 
 
 public class TaskService {
-public Task[] getAll() {
+	public Set<Task> getAll() {
+		TaskDAO taskDao = new TaskDAO();
+		Set<Task> taskList = taskDao.findAll();
+		return taskList;
+	}
+	public void create(Task newTask) throws Exception {
+//		TaskValidator.validate(newTask);
+		try {
+			TaskValidator.validate(newTask);
+		} catch (ValidateException e) {
+			throw new ValidateException(e.getMessage());
 		
-		TaskDAO userDao = new TaskDAO();
-		
-		Task[] userList = userDao.findAll();
-		
-		for(int i=0; i<userList.length; i++) {
-			
-			System.out.println(userList[i]);
+		} catch (Exception e) {
+			throw new ValidateException("Invalid date or invalid date format(dd.mm.yyyy)");
 		}
-				
-		return userList;
-	}
-
-
-
-public static LocalDate convertToDate(String date) {
-	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-	try {
-		LocalDate localDate = LocalDate.parse(date, formatter);
-		return localDate;
-	} catch (Exception e) {
-		System.out.println("Invalid date format!");
-		return null;
-	}
-}
-
-
-	
-	public void create(Task newUser) throws Exception {
-		
-		TaskValidator.validate(newUser);
-		
-		TaskDAO userDao = new TaskDAO();
-		userDao.create(newUser);		
-		
+		TaskDAO taskDao = new TaskDAO();
+		taskDao.create(newTask);
 	}
 	
-	
-	public void update(int id, Task updateUser) {
-				
-		TaskDAO usersDao = new TaskDAO();
-		usersDao.update(1,updateUser);
+	/**
+	 *
+	 * @param id
+	 * @param updateTask
+	 */
+	public void update(int id, Task updateTask) {
 		
+		TaskDAO taskDao = new TaskDAO();
+		taskDao.update(1, updateTask);
 	}
-	
-
-	
+//
+//	public void delete() {
+//
+//		TaskEntity deleteTask = new TaskEntity();
+//
+//		TaskDAO taskDao = new TaskDAO();
+//		taskDao.delete(1);
+//
+//	}
+//
 	public Task findById(int id) {
-		TaskDAO usersDao = new TaskDAO();
-		Task user = usersDao.findById(id);
-//		this.printUser(user);
-		return user;
+		TaskDAO taskDao = new TaskDAO();
+		Task task = taskDao.findById(id);
+		return task;
 	}
+
+
+
+
 }
 
 

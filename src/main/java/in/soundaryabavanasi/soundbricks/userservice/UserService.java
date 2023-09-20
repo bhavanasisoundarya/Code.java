@@ -9,15 +9,7 @@ import in.soundaryabavanasi.soundbricks.validation.UserValidator;
 
 public class UserService {
 	
-	public void create(User newUser) throws ValidateException{
-		
-		UserValidator.validate(newUser);
-		
-		UserDAO userObj = new UserDAO();
-		userObj.create(newUser);
-		
-		
-	}
+	
 	
 	public Set<User> getAll() {
 		UserDAO userDao = new UserDAO();
@@ -28,36 +20,30 @@ public class UserService {
 		return userList;
 	}
 
-	public void update() {
-		// TODO Auto-generated method stub
+public void create(User newUser) throws Exception {
+		
+		UserValidator.validate(newUser);
+		
+		UserDAO userDao = new UserDAO();
+		userDao.create(newUser);		
+		
+	}
+	
+	public void update(int id, User updateUser) {
+				
+//		UserValidator.validate(updateUser);
+		
+		UserDAO userDao = new UserDAO();
+		userDao.update(id,updateUser);
 		
 	}
 
-	public User findById(int i) {
-		// TODO Auto-generated method stub
-		return null;
+	public User findById(int id) {
+		UserDAO userDao = new UserDAO();
+		User user = userDao.findById(id);
+//		this.printUser(user);
+		return user;
 	}
 	
-	
-//	public void update() {
-//		User newUser3 = new User();
-//		newUser3.setId(12);
-//		newUser3.setFirstname("Vaishnavi");
-//		newUser3.setLastname("Shriram");
-//		newUser3.setEmail("vaishnavi@gmail.com");
-//		newUser3.setPassword("asdf***1234");
-//		newUser3.setActive(true);
-//		
-//		UserDAO userObj = new UserDAO();
-//		userObj.update(12, newUser3);
-//	}
-//	
-//	
-//	public void delete() {
-//		User newUser4 = new User();
-//		newUser4.setActive(false);
-//		
-//		UserDAO userObj = new UserDAO();
-//		userObj.delete(12);
-//	}
+
 }

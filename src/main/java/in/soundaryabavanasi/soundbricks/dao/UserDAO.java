@@ -7,9 +7,11 @@ import in.soundaryabavanasi.soundbricks.util.ConnectionUtil;
 import java.sql.*;
 import java.util.*;
 
+import com.mysql.cj.xdevapi.Result;
+
 public class UserDAO implements UserInterface{
 
-	public Set<User> findAll() throws RuntimeException {	
+	public Set<User> findAll() {	
 		
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -19,7 +21,7 @@ public class UserDAO implements UserInterface{
 		
 		try {
 			
-			String query = "SELECT * FROM users WHERE isactive = 1";
+			String query = "SELECT * FROM users WHERE isActive = 1";
 			con = ConnectionUtil.getConnection();
 			ps = con.prepareStatement(query);
             rs = ps.executeQuery();
@@ -27,10 +29,10 @@ public class UserDAO implements UserInterface{
 			
 			while(rs.next()) {
 				User user = new User();
-				user.setId(rs.getInt("id"));
-				user.setFirstname(rs.getString("firstname"));
-				user.setLastname(rs.getString("lastname"));
-				user.setEmail(rs.getString("email"));
+				user.setUserId(rs.getInt("id"));
+				user.setFirstName(rs.getString("firstName"));
+				user.setLastName(rs.getString("lastName"));
+				user.setEmailId(rs.getString("emailId"));
 				user.setPassword(rs.getString("password"));
 				user.setActive(rs.getBoolean("isActive"));
 				userList.add(user);
@@ -48,21 +50,24 @@ public class UserDAO implements UserInterface{
 	}
 	
 	@Override
-	public void create(User newUser) throws RuntimeException{
+	public void create(User newUser) {
 		Connection conn = null;
 		PreparedStatement ps = null;
+		Result rs = null;
 		
 		try {
-			String query = "INSERT INTO users (firstname, lastname, email, password) VALUES (?,?,?,?)";
+			String query = "INSERT INTO users (firstName, lastName, emailId, password) VALUES (?,?,?,?)";
 			conn = ConnectionUtil.getConnection();
 			ps = conn.prepareStatement(query);
-			ps.setString(1, newUser.getFirstname());
-			ps.setString(2, newUser.getLastname());
-			ps.setString(3, newUser.getPassword());
-			ps.setString(4, newUser.getEmail());
+			
+			ps.setString(1, newUser.getFirstName());
+			ps.setString(2, newUser.getLastName());
+			ps.setString(3, newUser.getEmailId());
+			ps.setString(4, newUser.getPassword());
+			
 			ps.executeUpdate(query);
 	           
-			System.out.print("Successfull");
+			System.out.print("User has been created successfully");
 			
 		}catch (SQLException e) {
 			e.printStackTrace();
@@ -75,31 +80,12 @@ public class UserDAO implements UserInterface{
 					
 				
 			
-		}
+	}
 	
-
-
-
-	
-
-
-//	@Override
-//	public void update() {
-//		// TODO Auto-generated method stub
-//		return null;
-//		
-//	}
-//
-//@Override
-//	public void delete() {
-//		// TODO Auto-generated method stub
-//		
-//	}
-
 
 
 	@Override
-	public User findById(int userId) {
+	public User findById(int id) {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		User users = null;
@@ -108,18 +94,18 @@ public class UserDAO implements UserInterface{
 		
 		try {
 			
-			String query = "SELECT * FROM users WHERE is_active = 1 AND id=?";
+			String query = "SELECT * FROM users WHERE isActive = 1 AND id=?";
 			conn = ConnectionUtil.getConnection();
 			ps = conn.prepareStatement(query);
-			ps.setInt(1, userId);
+			ps.setInt(1, id);
 			rs = ps.executeQuery();
 	
 			while(rs.next()) {
 				users = new User();
-				users.setId(rs.getInt("id"));
-				users.setFirstname(rs.getString("firstname"));
-				users.setLastname(rs.getString("lastname"));
-				users.setEmail(rs.getString("email"));
+				users.setUserId(rs.getInt("id"));
+				users.setFirstName(rs.getString("firstName"));
+				users.setLastName(rs.getString("lastName"));
+				users.setEmailId(rs.getString("emailId"));
 				users.setPassword(rs.getString("password"));
 				users.setActive(rs.getBoolean("isActive"));
 			}
@@ -136,6 +122,7 @@ public class UserDAO implements UserInterface{
 	
 		
 	}
+	
 
 
 
@@ -163,32 +150,32 @@ public class UserDAO implements UserInterface{
 
 
 	@Override
-	public void update( ) {
-//		String query = "SELECT * FROM users WHERE is_active = 1 AND id=?";
-//		conn = ConnectionUtil.getConnection();
-//		ps = conn.prepareStatement(query);
-//		ps.setInt(1, userId);
-//		rs = ps.executeQuery();
-//
-//		while(rs.next()) {
-//			user = new User();
-//			user.setId(rs.getInt("id"));
-//			user.setFirstname(rs.getString("firstname"));
-//			user.setLastname(rs.getString("lastname"));
-//			user.setEmail(rs.getString("email"));
-//			user.setPassword(rs.getString("password"));
-//			user.setActive(rs.getBoolean("isActive"));
-//		}
-//	}catch (SQLException e) {
-//		e.printStackTrace();
-//		System.out.println(e.getMessage());
-//		throw new RuntimeException();
-//		
-//	}finally {
-//		ConnectionUtil.close(conn, ps, rs);
-//	}
-//	
-//	return user;
+	public void update( int id, User updateuser) {
+		Connection connection = null;
+		PreparedStatement ps = null;
+		
+		try {
+			String query = "UPDATE users SET firstName = ?, lastName = ? WHERE isActive = 1 AND id = ?";
+			connection = ConnectionUtil.getConnection();
+			ps = connection.prepareStatement(query);
+			
+
+			
+			ps.setString(1, updateuser.getFirstName());
+			ps.setString(2,  updateuser.getFirstName());
+			ps.setInt(3, id);
+			ps.executeUpdate();
+			
+			System.out.println("User has been updated successfully");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+			throw new RuntimeException();
+			
+		} finally {
+			ConnectionUtil.close(connection, ps);
+		}
 		
 	}
 

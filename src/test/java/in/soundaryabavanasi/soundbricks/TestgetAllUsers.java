@@ -1,7 +1,8 @@
 package in.soundaryabavanasi.soundbricks;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import  in.soundaryabavanasi.soundbricks.exception.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.time.LocalDate;
 import java.util.Set;
 
@@ -20,11 +21,37 @@ public class TestgetAllUsers {
 		System.out.println(arr);
 	}
 	
+	
+	@Test
+
 	public void getById() {
 		UserService userService = new UserService();
 		User userList = userService.findById(1);
 		System.out.println(userList);
 	}
 	
+	
+@Test
+
+	public void testUpdateUser() throws Exception{
+		UserService userService = new UserService();
+		
+		User updateUser = new User();
+		
+		updateUser.setFirstName("Sound");
+		updateUser.setLastName("Boopathi Kannan");
+		
+		userService.update(1, updateUser);
+		
+		
+	}
+
+
+
+
+
+
+
+
 
 }

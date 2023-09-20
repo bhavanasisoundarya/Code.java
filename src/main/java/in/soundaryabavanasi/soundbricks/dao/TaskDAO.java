@@ -1,106 +1,187 @@
 package in.soundaryabavanasi.soundbricks.dao;
-
+import in.soundaryabavanasi.soundbricks.interfaceFiles.TaskInterface;
 import in.soundaryabavanasi.soundbricks.model.Task;
-import in.soundaryabavanasi.soundbricks.model.User;
-import in.soundaryabavanasi.soundbricks.dao.TaskList;
+import in.soundaryabavanasi.soundbricks.model.UserEntity;
+import in.soundaryabavanasi.soundbricks.util.ConnectionUtil;
+import java.text.*;
+import java.sql.*;
+import java.time.LocalDate;
+import java.util.*;
 
-public class TaskDAO {
+public class TaskDAO implements TaskInterface{
 
-	public Task[] findAll() {	
-		Task[] taskList = TaskList.listOfTask;
+	public Set<Task> findAll() {	
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		Set<Task> taskList = new HashSet<>();
+		
+		try {
+			
+			String query = "SELECT * FROM tasks WHERE is_active = 1";
+			con = ConnectionUtil.getConnection();
+			ps = con.prepareStatement(query);
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				Task task = new Task();
+				task.setId(rs.getInt("id"));
+				task.setTaskName(rs.getString("task_name"));
+				task.setDueDate(rs.getString("due_date"));
+				task.setActive(rs.getBoolean("is_active"));
+				taskList.add(task);
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+			throw new RuntimeException();
+			
+		}finally {
+			ConnectionUtil.close(con, ps, rs);
+		}
+		
 		return taskList;
 	}
 	
+	//   CREATE TASK
 	
 	
-	public void create(Task newuser) {
+	public void create(Task newTask) {
+				
+		Connection connection = null;
+		PreparedStatement ps = null;
 		
-    Task[] taskList = TaskList.listOfTask;
-		for(int i=0; i<taskList.length; i++) {
+		try {
+			String query = "INSERT INTO tasks (task_name, due_date) VALUES (?, ?)";
+			connection = ConnectionUtil.getConnection();
+			ps = connection.prepareStatement(query);
 			
-			Task task = taskList[i];
+			ps.setString(1, newTask.getTaskName());
+			ps.setString(2,  newTask.getDueDate());
 			
-			if(task==null) {
-				taskList[i] = newuser;
-
-				break;
-			}
+			ps.executeUpdate();
 			
+			System.out.println("Task has been created successfully");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+			throw new RuntimeException();
+			
+		} finally {
+			ConnectionUtil.close(connection, ps);
 		}
 	}
 	
-	/**
-	 *
-	 * @param id
-	 * @param updateUser
-	 */
+	// UPDATE TASK
 	
-	public void update(int id, Task updateUser) {
+	public void update(int id, Task updateTask) {
 		
-		Task[] taskList = TaskList.listOfTask;
+	Connection connection = null;
+	PreparedStatement ps = null;
+	
+	try {
+		String query = "UPDATE tasks SET task_name = ?, due_date = ? WHERE is_active = 1 AND id = ?";
+		connection = ConnectionUtil.getConnection();
+		ps = connection.prepareStatement(query);
 		
-		for(int i=0; i<taskList.length; i++) {
-			
-			Task task = taskList[i];
-			
-			if(task==null) {
-				continue;
-			}
-			
-			if(task.getId()==id) {
-
-				
-				task.setName(updateUser.getName());
-				task.setDueDate(updateUser.getDueDate());
-				
-				
-				break;
-			}
-			
-		}
+		
+		ps.setString(1, updateTask.getTaskName());
+		ps.setString(2,  updateTask.getDueDate());
+		ps.setInt(3, id);
+		ps.executeUpdate();
+		
+		System.out.println("Task has been updated successfully");
+		
+	} catch (SQLException e) {
+		e.printStackTrace();
+		System.out.println(e.getMessage());
+		throw new RuntimeException();
+		
+	} finally {
+		ConnectionUtil.close(connection, ps);
+	}
+	
 		
 	}
-
-			
-		
-		
+//	
+//	//  DELETE TASK
+//	
+//	public void delete(int id) {
+//		
+//		Task taskList = TaskList.listOfTasks;
+//		
+//		for(int i=0; i<taskList.length; i++) {
+//			
+//			Task task = taskList[i];
+//			
+//			if(task==null) {
+//				continue;
+//			}
+//			
+//			if(task.getId()==id) {
+//				task.setActive(false);
+//				break;
+//			}
+//		}
+//	}
+//	
+//	//  FIND BY ID
 	
-	
-	public void delete(int id) {
-			
-			Task[] taskList = TaskList.listOfTask;
-			
-			for(int i=0; i<taskList.length; i++) {
-				
-				Task task = taskList[i];
-				
-				if(task==null) {
-					continue;
-				}
-				
-				if(task.getId()==id) {
-					task.setActive(false);
-					break;
-				}
-			}
-		}
-	
+	@Override
 	public Task findById(int id) {
-		Task[] taskList = TaskList.listOfTask;
-		Task taskMatch = null;
-	
-		for (int i = 0; i < taskList.length; i++) {
-			Task user = taskList[i];
-			if (user.getId() == id) {
-				taskMatch = user;
-				break;
+		Connection connection = null;
+		PreparedStatement ps = null;
+		Task task = null;
+		ResultSet rs = null;
+		
+		try {
+			String query = "SELECT * FROM tasks WHERE is_active = 1 AND id = ?";
+			connection = ConnectionUtil.getConnection();
+			ps = connection.prepareStatement(query);
+			
+			ps.setInt(1, id);
+			
+			rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				task=new Task();
+				task.setTaskName(rs.getString("task_name"));
+				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
+				String date = dateFormat.format(rs.getDate("due_date"));
+				task.setDueDate(date);
+				task.setActive(rs.getBoolean("is_active"));
 			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+			throw new RuntimeException();
+			
+		} finally {
+			ConnectionUtil.close(connection, ps, rs);
 		}
-		return taskMatch;
+		return task;
+		
 	}
-
-
-
+	@Override
+	public void delete() {
+		// TODO Auto-generated method stub
+		
+	}
 	
+
+
+@Override
+public void sortByDate(LocalDate date) {
+	// TODO Auto-generated method stub
+	
+}
+
+@Override
+public int count() {
+	// TODO Auto-generated method stub
+	return 0;
+} 
 
 }
